@@ -14,32 +14,20 @@ router.get("/get", async (req, res) => {
     res.status(400).json({ error: error.message });
   }
 });
-router.post(
-  "/create",
-  authMiddleware,
-  upload.single("file"),
-  async (req, res) => {
-    const { title, description, details } = req.body;
-
-    if (!req.file) {
-      return res.status(400).send("No file uploaded.");
-    }
-
-    const url = `https://kind-ruby-worm-boot.cyclic.app/storage/${req.file.filename}`;
-
-    try {
-      const service = await serviceController.create(
-        title,
-        description,
-        details,
-        url
-      );
-      res.json(service);
-    } catch (error) {
-      res.status(400).json({ error: error.message });
-    }
+router.post("/create", authMiddleware, async (req, res) => {
+  const { title, description, details, link } = req.body;
+  try {
+    const service = await serviceController.create(
+      title,
+      description,
+      details,
+      link
+    );
+    res.json(service);
+  } catch (error) {
+    res.status(400).json({ error: error.message });
   }
-);
+});
 router.post("/remove", authMiddleware, async (req, res) => {
   try {
     const service = await serviceController.remove(req.body.id);
