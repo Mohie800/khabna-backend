@@ -37,7 +37,7 @@ router.get("/complete", authMiddleware, async (req, res) => {
     res.status(400).json({ error: error.message });
   }
 });
-router.post("/create", upload.single("file"), async (req, res) => {
+router.post("/create", async (req, res) => {
   const {
     name,
     age,
@@ -49,12 +49,8 @@ router.post("/create", upload.single("file"), async (req, res) => {
     education,
     xp,
     statusId,
+    link,
   } = req.body;
-  let url = null;
-
-  if (req.file) {
-    url = `https://kind-ruby-worm-boot.cyclic.app/storage/${req.file.filename}`;
-  }
   try {
     const order = await employeeController.create(
       name,
@@ -67,7 +63,7 @@ router.post("/create", upload.single("file"), async (req, res) => {
       education,
       xp,
       statusId,
-      url
+      link
     );
     res.json({ order });
   } catch (error) {

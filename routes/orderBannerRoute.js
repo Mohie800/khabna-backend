@@ -13,41 +13,26 @@ router.get("/get", async (req, res) => {
     res.status(400).json({ error: error.message });
   }
 });
-router.post("/create", upload.single("file"), async (req, res) => {
-  if (!req.file) {
-    return res.status(400).send("No file uploaded.");
-  }
-
-  const url = `https://kind-ruby-worm-boot.cyclic.app/storage/${req.file.filename}`;
-
+router.post("/create", async (req, res) => {
   try {
-    const homeBanner = await orderBannerController.create(url);
+    const homeBanner = await orderBannerController.create(req.body.link);
     res.json({ homeBanner });
   } catch (error) {
     res.status(400).json({ error: error.message });
   }
 });
-router.post(
-  "/update",
-  authMiddleware,
-  upload.single("file"),
-  async (req, res) => {
-    let url = null;
-
-    if (!req.file) {
-      return res.status(400).send("No file uploaded.");
-    }
-
-    url = `https://kind-ruby-worm-boot.cyclic.app/storage/${req.file.filename}`;
-
-    try {
-      const homeBanner = await orderBannerController.Edit(req.body.id, url);
-      res.json(homeBanner);
-    } catch (error) {
-      res.status(400).json({ error: error.message });
-    }
+router.post("/update", authMiddleware, async (req, res) => {
+  let url = null;
+  try {
+    const homeBanner = await orderBannerController.Edit(
+      req.body.id,
+      req.body.link
+    );
+    res.json(homeBanner);
+  } catch (error) {
+    res.status(400).json({ error: error.message });
   }
-);
+});
 
 router.post("/rm", async (req, res) => {
   try {
