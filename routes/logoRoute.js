@@ -22,10 +22,8 @@ router.post("/create", async (req, res) => {
   }
 });
 router.post("/update", authMiddleware, async (req, res) => {
-  let url = null;
-
   try {
-    const logo = await logoController.Edit(req.body.id, req.body.url);
+    const logo = await logoController.Edit(req.body.id, req.body.link);
     res.json(logo);
   } catch (error) {
     res.status(400).json({ error: error.message });
