@@ -25,6 +25,7 @@ const create = async (
     xp,
     statusId,
     file,
+    id: Math.random(5).toFixed(5) * 100000,
   });
   await order.save();
   return order;

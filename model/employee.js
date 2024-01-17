@@ -11,6 +11,7 @@ const employeeSchema = new mongoose.Schema({
   education: { type: String },
   xp: { type: String },
   statusId: { type: Number },
+  id: { type: Number },
 });
 
 module.exports = mongoose.model("employee", employeeSchema);
