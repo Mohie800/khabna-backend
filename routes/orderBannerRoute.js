@@ -3,6 +3,7 @@ const router = express.Router();
 
 const orderBannerController = require("../controllers/orderBannerController");
 const upload = require("../middleware/upload");
+const authMiddleware = require("../middleware/authMiddleware");
 
 router.get("/get", async (req, res) => {
   try {
@@ -26,22 +27,27 @@ router.post("/create", upload.single("file"), async (req, res) => {
     res.status(400).json({ error: error.message });
   }
 });
-router.post("/update", upload.single("file"), async (req, res) => {
-  let url = null;
+router.post(
+  "/update",
+  authMiddleware,
+  upload.single("file"),
+  async (req, res) => {
+    let url = null;
 
-  if (!req.file) {
-    return res.status(400).send("No file uploaded.");
+    if (!req.file) {
+      return res.status(400).send("No file uploaded.");
+    }
+
+    url = `https://kind-ruby-worm-boot.cyclic.app/storage/${req.file.filename}`;
+
+    try {
+      const homeBanner = await orderBannerController.Edit(req.body.id, url);
+      res.json(homeBanner);
+    } catch (error) {
+      res.status(400).json({ error: error.message });
+    }
   }
-
-  url = `https://kind-ruby-worm-boot.cyclic.app/storage/${req.file.filename}`;
-
-  try {
-    const homeBanner = await orderBannerController.Edit(req.body.id, url);
-    res.json(homeBanner);
-  } catch (error) {
-    res.status(400).json({ error: error.message });
-  }
-});
+);
 
 router.post("/rm", async (req, res) => {
   try {

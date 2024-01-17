@@ -5,7 +5,7 @@ const employeeController = require("../controllers/employeeController");
 const authMiddleware = require("../middleware/authMiddleware");
 const upload = require("../middleware/upload");
 
-router.get("/get", async (req, res) => {
+router.get("/get", authMiddleware, async (req, res) => {
   try {
     const order = await employeeController.get();
     res.json(order);
@@ -13,7 +13,7 @@ router.get("/get", async (req, res) => {
     res.status(400).json({ error: error.message });
   }
 });
-router.get("/new", async (req, res) => {
+router.get("/new", authMiddleware, async (req, res) => {
   try {
     const order = await employeeController.getNew();
     res.json(order);
@@ -21,7 +21,7 @@ router.get("/new", async (req, res) => {
     res.status(400).json({ error: error.message });
   }
 });
-router.get("/pending", async (req, res) => {
+router.get("/pending", authMiddleware, async (req, res) => {
   try {
     const order = await employeeController.getProccess();
     res.json(order);
@@ -29,7 +29,7 @@ router.get("/pending", async (req, res) => {
     res.status(400).json({ error: error.message });
   }
 });
-router.get("/complete", async (req, res) => {
+router.get("/complete", authMiddleware, async (req, res) => {
   try {
     const order = await employeeController.getComplete();
     res.json(order);

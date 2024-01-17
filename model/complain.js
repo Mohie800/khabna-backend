@@ -8,6 +8,7 @@ const complainSchema = new mongoose.Schema({
   type: { type: String },
   description: { type: String },
   statusId: { type: Number },
+  id: { type: Number, default: Math.random(5).toFixed(5) * 100000 },
 });
 
 module.exports = mongoose.model("complain", complainSchema);

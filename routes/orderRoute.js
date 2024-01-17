@@ -4,7 +4,7 @@ const router = express.Router();
 const orderController = require("../controllers/orderController");
 const authMiddleware = require("../middleware/authMiddleware");
 
-router.get("/get", async (req, res) => {
+router.get("/get", authMiddleware, async (req, res) => {
   try {
     const order = await orderController.get();
     res.json(order);
@@ -12,7 +12,7 @@ router.get("/get", async (req, res) => {
     res.status(400).json({ error: error.message });
   }
 });
-router.get("/new", async (req, res) => {
+router.get("/new", authMiddleware, async (req, res) => {
   try {
     const order = await orderController.getNew();
     res.json(order);
@@ -20,7 +20,7 @@ router.get("/new", async (req, res) => {
     res.status(400).json({ error: error.message });
   }
 });
-router.get("/pending", async (req, res) => {
+router.get("/pending", authMiddleware, async (req, res) => {
   try {
     const order = await orderController.getProccess();
     res.json(order);
@@ -28,7 +28,7 @@ router.get("/pending", async (req, res) => {
     res.status(400).json({ error: error.message });
   }
 });
-router.get("/complete", async (req, res) => {
+router.get("/complete", authMiddleware, async (req, res) => {
   try {
     const order = await orderController.getComplete();
     res.json(order);
@@ -45,7 +45,7 @@ router.post("/create", async (req, res) => {
     res.status(400).json({ error: error.message });
   }
 });
-router.post("/update", async (req, res) => {
+router.post("/update", authMiddleware, async (req, res) => {
   try {
     const order = await orderController.update(req.body.id, req.body.statusId);
     res.json(order);
@@ -53,7 +53,7 @@ router.post("/update", async (req, res) => {
     res.status(400).json({ error: error.message });
   }
 });
-router.post("/remove", async (req, res) => {
+router.post("/remove", authMiddleware, async (req, res) => {
   try {
     const order = await orderController.remove(req.body.id);
     res.json(order);

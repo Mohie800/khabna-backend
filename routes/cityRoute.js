@@ -20,7 +20,7 @@ router.post("/create", authMiddleware, async (req, res) => {
     res.status(400).json({ error: error.message });
   }
 });
-router.post("/update", async (req, res) => {
+router.post("/update", authMiddleware, async (req, res) => {
   try {
     const city = await cityController.EditCity(req.body.id, req.body.name);
     res.json(city);
@@ -28,7 +28,7 @@ router.post("/update", async (req, res) => {
     res.status(400).json({ error: error.message });
   }
 });
-router.post("/remove", async (req, res) => {
+router.post("/remove", authMiddleware, async (req, res) => {
   try {
     const city = await cityController.remove(req.body.id);
     res.json(city);
