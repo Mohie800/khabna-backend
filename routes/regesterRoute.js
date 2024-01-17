@@ -21,29 +21,18 @@ router.post("/create", async (req, res) => {
     res.status(400).json({ error: error.message });
   }
 });
-router.post(
-  "/update",
-  authMiddleware,
-  upload.single("file"),
-  async (req, res) => {
-    let url = null;
-
-    if (req.file) {
-      url = `https://kind-ruby-worm-boot.cyclic.app/storage/${req.file.filename}`;
-    }
-
-    try {
-      const register = await registerController.EditNumber(
-        req.body.id,
-        req.body.number,
-        url,
-        req.body.authNo
-      );
-      res.json(register);
-    } catch (error) {
-      res.status(400).json({ error: error.message });
-    }
+router.post("/update", authMiddleware, async (req, res) => {
+  try {
+    const register = await registerController.EditNumber(
+      req.body.id,
+      req.body.number,
+      req.body.link,
+      req.body.authNo
+    );
+    res.json(register);
+  } catch (error) {
+    res.status(400).json({ error: error.message });
   }
-);
+});
 
 module.exports = router;
