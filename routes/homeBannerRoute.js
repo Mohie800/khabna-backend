@@ -17,7 +17,7 @@ router.post("/create", upload.single("file"), async (req, res) => {
     return res.status(400).send("No file uploaded.");
   }
 
-  const url = `https://khabna.onrender.com/storage/${req.file.filename}`;
+  const url = `https://kind-ruby-worm-boot.cyclic.app/storage/${req.file.filename}`;
 
   try {
     const homeBanner = await homeBannerController.create(url);
@@ -33,7 +33,7 @@ router.post("/update", upload.single("file"), async (req, res) => {
     return res.status(400).send("No file uploaded.");
   }
 
-  url = `https://khabna.onrender.com/storage/${req.file.filename}`;
+  url = `https://kind-ruby-worm-boot.cyclic.app/storage/${req.file.filename}`;
 
   try {
     const homeBanner = await homeBannerController.Edit(req.body.id, url);

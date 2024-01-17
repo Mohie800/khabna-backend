@@ -24,7 +24,7 @@ router.post("/update", upload.single("file"), async (req, res) => {
   let url = null;
 
   if (req.file) {
-    url = `https://khabna.onrender.com/storage/${req.file.filename}`;
+    url = `https://kind-ruby-worm-boot.cyclic.app/storage/${req.file.filename}`;
   }
 
   try {

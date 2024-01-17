@@ -24,7 +24,7 @@ router.post("/update", upload.single("file"), async (req, res) => {
   let url = null;
 
   if (req.file) {
-    url = `https://khabna.onrender.com/storage/${req.file.filename}`;
+    url = `https://kind-ruby-worm-boot.cyclic.app/storage/${req.file.filename}`;
   }
 
   try {
@@ -45,7 +45,7 @@ router.post("/update-url", upload.single("file"), async (req, res) => {
     return res.status(400).send("No file uploaded.");
   }
 
-  url = `https://khabna.onrender.com/storage/${req.file.filename}`;
+  url = `https://kind-ruby-worm-boot.cyclic.app/storage/${req.file.filename}`;
   try {
     const taxRecord = await taxController.EditUrl(req.body.id, url);
     res.json(taxRecord);
