@@ -3,6 +3,7 @@ const router = express.Router();
 
 const registerController = require("../controllers/registerController");
 const upload = require("../middleware/upload");
+const authMiddleware = require("../middleware/authMiddleware");
 
 router.get("/get", async (req, res) => {
   try {

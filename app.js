@@ -26,6 +26,7 @@ const User = require("./model/user");
 const app = express();
 
 const cors = require("cors");
+const authMiddleware = require("./middleware/authMiddleware");
 // const bodyParser = require("body-parser");
 
 app.use(express.json());
@@ -124,6 +125,10 @@ app.post("/login", async (req, res) => {
     console.log(err);
   }
   // Our register logic ends here
+});
+
+app.get("/check", authMiddleware, (req, res) => {
+  res.send("succsee");
 });
 
 // app.use("/users", usersRouter);
