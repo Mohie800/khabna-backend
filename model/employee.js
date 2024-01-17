@@ -12,6 +12,7 @@ const employeeSchema = new mongoose.Schema({
   xp: { type: String },
   statusId: { type: Number },
   id: { type: Number },
+  file: { type: String },
 });
 
 module.exports = mongoose.model("employee", employeeSchema);
