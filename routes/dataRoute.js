@@ -6,6 +6,7 @@ const orderBannerController = require("../controllers/orderBannerController");
 const cityController = require("../controllers/cityController");
 const taxController = require("../controllers/taxController");
 const registerController = require("../controllers/registerController");
+const serviceController = require("../controllers/serviceController");
 
 router.get("/get", async (req, res) => {
   try {
@@ -15,7 +16,8 @@ router.get("/get", async (req, res) => {
     const cities = await cityController.getCity();
     const tax = await taxController.getNumber();
     const reg = await registerController.getNumber();
-    res.json({ logo, homeBanner, orderBanner, cities, tax, reg });
+    const services = await serviceController.get();
+    res.json({ logo, homeBanner, orderBanner, cities, tax, reg, services });
   } catch (error) {
     res.status(400).json({ error: error.message });
   }
