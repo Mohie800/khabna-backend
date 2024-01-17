@@ -53,7 +53,7 @@ router.post("/create", upload.single("file"), async (req, res) => {
   let url = null;
 
   if (req.file) {
-    url = `http://localhost:3001/storage/${req.file.filename}`;
+    url = `https://khabna.onrender.com/storage/${req.file.filename}`;
   }
   try {
     const order = await employeeController.create(

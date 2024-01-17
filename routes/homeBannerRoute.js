@@ -17,7 +17,7 @@ router.post("/create", upload.single("file"), async (req, res) => {
     return res.status(400).send("No file uploaded.");
   }
 
-  const url = `http://localhost:3001/storage/${req.file.filename}`;
+  const url = `https://khabna.onrender.com/storage/${req.file.filename}`;
 
   try {
     const homeBanner = await homeBannerController.create(url);
@@ -33,7 +33,7 @@ router.post("/update", upload.single("file"), async (req, res) => {
     return res.status(400).send("No file uploaded.");
   }
 
-  url = `http://localhost:3001/storage/${req.file.filename}`;
+  url = `https://khabna.onrender.com/storage/${req.file.filename}`;
 
   try {
     const homeBanner = await homeBannerController.Edit(req.body.id, url);

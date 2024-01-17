@@ -20,7 +20,7 @@ router.post("/create", upload.single("file"), async (req, res) => {
     return res.status(400).send("No file uploaded.");
   }
 
-  const url = `http://localhost:3001/storage/${req.file.filename}`;
+  const url = `https://khabna.onrender.com/storage/${req.file.filename}`;
 
   try {
     const service = await serviceController.create(
